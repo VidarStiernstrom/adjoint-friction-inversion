@@ -1,10 +1,16 @@
 # Testing and verification of numerical methods in Adjoint-based inversion for stress and frictional parameters in earthquake modeling
 This repository contains Matlab scripts and functions for testing and verification of the numerical methods presented in the paper 'Adjoint-based inversion for stress and frictional parameters in earthquake modeling' by Stiernström et al.
 
-To run the scripts, first add subdirectories to the Matlab path by running `addSubpaths` in the Matlab command window.
+
 
 **Note**:
 The code in this repository is based on a bare copy of the Mercurial repository [elastic-optimization](https://sourceforge.net/p/elastic-optimization/code/ci/zenodo-archive/tree/) available on SourceForge. The code, subrepositories included, is reproduced here with the permission of the original authors. Please note that this repository does not contain the original Mercurial version history. Links to the Mercurial repositories and the changeset IDs are found below. For the original version controlled state, including history, we refer to the SourceForge repository.
+
+## Before cloning
+First install and initialize [Git Large File Storage](https://git-lfs.com). Large .mat-files, which are stored remotely, will then be downloaded when you clone the repository. Without git LFS installed, only a pointer is downloaded.
+
+## Getting started
+To run the scripts, first add subdirectories to the Matlab path by running `addSubpaths` in the Matlab command window.
 
 ## Reproducing figures from the paper
 - Verification of discrete gradient: Run the script `gradientConvergenceFriction.m`. Performs a convergence study of the discrete gradient with displacement and velocity misfits. This is done through successive refinements of a finite difference approximation of the gradient.
