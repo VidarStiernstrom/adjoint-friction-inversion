@@ -1,5 +1,5 @@
 addSubpaths;
-maxIter = 3; %200; % max number of optimization iterations
+maxIter = 200; % max number of optimization iterations
 m = 251; % Grid points in x-direction
 m_p = 26; % Grid points on parameter grid
 scalingStudy = false; 

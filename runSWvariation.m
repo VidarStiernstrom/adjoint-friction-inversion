@@ -42,8 +42,8 @@ lbfgs = true;
 T = 9.5;
 
 % Location of the adjoint source (i.e., the location where the rupture time is measured)
-% adj_fault_source_locs = {[0], [1], [2], [3], [4], [5], [6], [7], [8.5]}; 
-adj_fault_source_locs = {[5]}; % for debugging
+adj_fault_source_locs = {[0], [1], [2], [3], [4], [5], [6], [7], [8.5]}; 
+% adj_fault_source_locs = {[5]}; % for debugging
 Nadj = length(adj_fault_source_locs);
 
 %%% Run with parameters, save data and create optimization object
