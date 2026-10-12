@@ -1,4 +1,4 @@
-function make_movie(paths, plot_variables, uvmaxs, Nres, sim_types)
+function make_movie(paths, plot_variables, uvmaxs, Nres, sim_types, axlims, fault_xlims)
     default_arg('plot_variables', 'all');
     default_arg('uvmaxs', struct());
     default_field(uvmaxs, 'true', [1, 1.5]);
@@ -6,10 +6,14 @@ function make_movie(paths, plot_variables, uvmaxs, Nres, sim_types)
     default_field(uvmaxs, 'adj', [0.2, 0.2]);
     default_arg('Nres', 69); % number of results to plot
     default_arg('sim_types', {'true', 'fwd', 'adj'});
-
+    default_arg('axlims', [-10, 10, -10, 10]); % xleft, xright, ybottom, ytop
+    default_arg('fault_xlims', [-10, 10]); % xleft, xright
+    
     type = struct();
     type.plot_variables = plot_variables; % 'all' or 'vVS'
-    type.axlims = [-10, 10, -10, 10]; % xleft, xright, ybottom, ytop
+    % type.axlims = [-10, 10, -10, 10]; % xleft, xright, ybottom, ytop
+    type.axlims = axlims;
+    type.fault_xlims = fault_xlims;
 
     for i = 1:length(sim_types)
         sim_type = sim_types{i};

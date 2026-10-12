@@ -6,8 +6,9 @@ function plot_obs(obs, saveOpts, plotReceiver, clims, plotOpts)
     default_field(plotOpts, 'plot_receivers', []);
     default_field(plotOpts, 'delv', 0.3);
     default_field(plotOpts, 'truePlot', false);
+    default_field(plotOpts, 'fontsize', 20);
 
-    fontsize = 20;
+    fontsize = plotOpts.fontsize;
 
     Nobs = numel(obs.loc);
     obs_x = zeros(1, Nobs);

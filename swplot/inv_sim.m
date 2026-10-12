@@ -9,8 +9,9 @@
 % outpath = './swadjoint/out/inv4/';
 % sim_iters = [20];
 
-function inv_sim(loadOpts, sim_iters, T)
+function inv_sim(loadOpts, sim_iters, T, fontsize)
     default_arg('T', 6);
+    default_arg('fontsize', 20);
 
     load(sprintf('%s%s', loadOpts.savepath, loadOpts.filename), 'optObj', 'parSetFun', 'optPars', 'parSetOpts', 'order', 'history');
     outpath = loadOpts.savepath;
@@ -61,6 +62,7 @@ function inv_sim(loadOpts, sim_iters, T)
     tvOpts.plot_receivers = [46, 48, 50, 53, 54, 60, 62, 66, 74, 80];
     tvOpts.delv = 0.4;
     tvOpts.truePlot = false;
+    tvOpts.fontsize = fontsize;
     plot_obs(trueObs, obsSaveOpts, true, [-0.35, 0.35], tvOpts); % fault plot / caxis
 
     res_files = dir(sprintf('%s/*.mat', trueSavedir));
@@ -158,7 +160,7 @@ function inv_sim(loadOpts, sim_iters, T)
         uvmaxs.adj = [0.1, 0.1];
         make_movie(paths, 'vVS', uvmaxs, Nres, {'fwd', 'adj'});
         adjcmax = 0.1;
-        make_fig(paths, adjcmax, Nres);
+        make_fig(paths, adjcmax, Nres, fontsize);
 
         %%% delete results
         delete([fwdSavedir, '/*.mat']);

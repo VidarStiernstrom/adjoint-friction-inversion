@@ -151,7 +151,7 @@ function var_analysis(savedir, calx, plotOpts)
     hold on;
     plot(fault_x(rupIterNum), Vr_Num / cs, 'linewidth', 2, 'DisplayName', 'Num.');
     xlabel('x along fault (km)');
-    ylabel('V_r/c_s');
+    ylabel('v_r/c');
     ylim([0, 1.1]);
     grid on;
     legend('Location', 'best');
@@ -307,12 +307,12 @@ function var_analysis(savedir, calx, plotOpts)
     hold on;
     % for i = 1:length(vars.gradients)
     for i = varPlotIter
-        plot(fault_x, grads.FracE{i}*1e-3, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
+        plot(fault_x, grads.FracE{i}*1e-3, 'linewidth', 2, 'DisplayName', sprintf('\\xi = %.2f km', full(source{i}.x{1})));
     end
     plot(fault_x, gradLEFM.vec.fracE*1e-3, 'k--', 'linewidth', 2, 'DisplayName', 'LEFM');
     legend();
     xlabel('x along fault (km)');
-    title('$\delta T_{rup} (x_m) / \delta \Gamma(x) \; [\mathrm{s/MPa} \cdot \mathrm{m}]$','Interpreter','latex')
+    title('$\delta T_{rup} (\xi) / \delta \Gamma(x) \; [\mathrm{s/MPa} \cdot \mathrm{m}]$','Interpreter','latex')
     % title('$\mathrm{Grad:} (\tau_p - \tau_r)D_c / 2 \mathrm{(MPa \cdot m)}$','Interpreter','latex')
     grid on;
     xlim(xplotLim);
@@ -332,12 +332,12 @@ function var_analysis(savedir, calx, plotOpts)
     for i = varPlotIter
         % grad_fracE1 = grads.taup{i} * 2 ./ ParamVec.D_c;
         % plot(fault_x, grad_fracE1*1e-3, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
-        plot(fault_x, grads.taup_{i}, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
+        plot(fault_x, grads.taup_{i}, 'linewidth', 2, 'DisplayName', sprintf('\\xi = %.2f km', full(source{i}.x{1})));
     end
     plot(fault_x, gradLEFM.vec.fracE_, 'k--', 'linewidth', 2, 'DisplayName', 'LEFM');
     legend();
     xlabel('x along fault (km)');
-    title('$\delta T_{rup} (x_m) / \delta \tau_p (x) \times (\tau_p - \tau_r) \; [\mathrm{s/MPa} \cdot \mathrm{m}]$','Interpreter','latex')
+    title('$\delta T_{rup} (\xi) / \delta \tau_p (x) \times (\tau_p - \tau_r) \; [\mathrm{s/MPa} \cdot \mathrm{m}]$','Interpreter','latex')
     % title('$\mathrm{Grad:} \tau_p - \tau_r \mathrm{(MPa)}$','Interpreter','latex')
     grid on;
     set(gca,'fontsize',fontsize);
@@ -355,12 +355,12 @@ function var_analysis(savedir, calx, plotOpts)
     for i = varPlotIter
         % grad_fracE2 = grads.D_c{i} * 2 ./ (ParamVec.taup - ParamVec.taur);
         % plot(fault_x, grad_fracE2*1e-3, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
-        plot(fault_x, grads.D_c_{i}, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
+        plot(fault_x, grads.D_c_{i}, 'linewidth', 2, 'DisplayName', sprintf('\\xi = %.2f km', full(source{i}.x{1})));
     end
     plot(fault_x, gradLEFM.vec.fracE_, 'k--', 'linewidth', 2, 'DisplayName', 'LEFM');
     legend();
     xlabel('x along fault (km)');
-    title('$\delta T_{rup} (x_m) / \delta D_c (x) \times D_c \; [\mathrm{s/MPa} \cdot \mathrm{m}]$','Interpreter','latex')
+    title('$\delta T_{rup} (\xi) / \delta D_c (x) \times D_c \; [\mathrm{s/MPa} \cdot \mathrm{m}]$','Interpreter','latex')
     % title('$\mathrm{Grad:} \tau_p - \tau_r \mathrm{(MPa)}$','Interpreter','latex')
     % grid on;
     xlim(xplotLim);
@@ -377,7 +377,7 @@ function var_analysis(savedir, calx, plotOpts)
     hold on;
     % for i = 1:length(vars.gradients)
     for i = varPlotIter
-        plot(fault_x, grads.FracE_{i}, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
+        plot(fault_x, grads.FracE_{i}, 'linewidth', 2, 'DisplayName', sprintf('\\xi = %.2f km', full(source{i}.x{1})));
     end
     plot(fault_x, gradLEFM.vec.fracE_, 'k--', 'linewidth', 2, 'DisplayName', 'LEFM');
     if plotOpts.CohesiveAnalysis
@@ -389,7 +389,7 @@ function var_analysis(savedir, calx, plotOpts)
     grid on;
     legend();
     xlabel('x along fault (km)');
-    title('$\delta T_{rup} (x_m) / \delta \Gamma(x) \times \Gamma (x) \; [\mathrm{s}]$','Interpreter','latex')
+    title('$\delta T_{rup} (\xi) / \delta \Gamma(x) \times \Gamma (x) \; [\mathrm{s}]$','Interpreter','latex')
     set(gca,'fontsize',fontsize);
     pdf_output(f4, sprintf('%s/grad_dT_dFE_nonDim', savedir));
     ylim(ylogplotLim);
@@ -400,7 +400,7 @@ function var_analysis(savedir, calx, plotOpts)
         f6 = figure();
         hold on;
         for i = varPlotIter
-            plot(fault_x, grads.FracE_{i} - gradLEFM.vec.fracE_, 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
+            plot(fault_x, grads.FracE_{i} - gradLEFM.vec.fracE_, 'linewidth', 2, 'DisplayName', sprintf('\\xi = %.2f km', full(source{i}.x{1})));
         end
         plot(fault_x, gradLEFM.vec.fracE_cohesive, 'k--', 'linewidth', 2, 'DisplayName', 'coh.');
         xlim(xplotLim);
@@ -409,7 +409,7 @@ function var_analysis(savedir, calx, plotOpts)
         grid on;
         legend();
         xlabel('x along fault (km)');
-        title('$\delta T_{rup} (x_m) / \delta \Gamma(x) \times \Gamma (x) - \mathrm{LEFM} \; [\mathrm{s}]$','Interpreter','latex')
+        title('$\delta T_{rup} (\xi) / \delta \Gamma(x) \times \Gamma (x) - \mathrm{LEFM} \; [\mathrm{s}]$','Interpreter','latex')
         set(gca,'fontsize',fontsize);
         pdf_output(f6, sprintf('%s/grad_dT_dFE_nonDim_coh', savedir));
         yscale('log');
@@ -423,9 +423,9 @@ function var_analysis(savedir, calx, plotOpts)
     hold on;
     % for i = 1:length(vars.gradients)
     for i = varPlotIter
-        plot(fault_x, abs(grads.W_{i}), 'linewidth', 2, 'DisplayName', sprintf('x_m = %.2f', full(source{i}.x{1})));
+        plot(fault_x, abs(grads.W_{i}), 'linewidth', 2, 'DisplayName', sprintf('\\xi = %.2f km', full(source{i}.x{1})));
     end
-    % plot(fault_x, gradLEFM.vec.fracE_, 'k--', 'linewidth', 2, 'DisplayName', 'LEFM');
+    plot(fault_x, gradLEFM.vec.fracE_, 'k--', 'linewidth', 2, 'DisplayName', 'LEFM');
     if plotOpts.CohesiveAnalysis
         plot(fault_x, abs(gradLEFM.vec.W_cohesive), 'k--', 'linewidth', 2, 'DisplayName', 'coh');
     end
@@ -435,7 +435,7 @@ function var_analysis(savedir, calx, plotOpts)
     legend();
     % yscale('log');
     xlabel('x along fault (km)');
-    title('$|\delta T_{rup} (x_m) / \delta W(x)| \times W(x) \; [\mathrm{s}]$','Interpreter','latex')
+    title('$|\delta T_{rup} (\xi) / \delta W(x)| \times W(x) \; [\mathrm{s}]$','Interpreter','latex')
     set(gca,'fontsize',fontsize);
     pdf_output(f5, sprintf('%s/grad_dT_dW_nonDim', savedir));
     ylim(ylogplotLim);
@@ -452,7 +452,7 @@ function var_analysis(savedir, calx, plotOpts)
         plot(fault_x, abs(gradLEFM.vec.fracE_) .* (fault_x <= source{i}.x{1}), 'k--', 'linewidth', 3, 'DisplayName', 'FE by LEFM');
         legend();
         xlabel('x along fault (km)');
-        title('$|\delta T_{rup} (x_m) / \delta \bar{p}(x)| \; [\mathrm{s}]$','Interpreter','latex')
+        title('$|\delta T_{rup} (\xi) / \delta \bar{p}(x)| \; [\mathrm{s}]$','Interpreter','latex')
     % title('$\mathrm{Grad:} (\tau_p - \tau_r)D_c / 2 \mathrm{(MPa \cdot m)}$','Interpreter','latex')
         grid on;
         xlim(xplotLim);
@@ -462,46 +462,4 @@ function var_analysis(savedir, calx, plotOpts)
     end
 
 
-
-%%% Botu
-% approx_threshold_x = 2;
-% approx_threshold_iter = find(fault_x(rupIterNum) > approx_threshold_x, 1);
-% rupIterNum1 = rupIterNum(1:approx_threshold_iter);
-% rupIterNum2 = rupIterNum(approx_threshold_iter+1:end);
-
-% smoothparam1 = 0.8;
-% smoothparam2 = 0.3;
-% fitobj1 = fit(fault_x(rupIterNum1), Trup_Num(rupIterNum1), 'smoothingspline', 'SmoothingParam', smoothparam1);
-% fitobj2 = fit(fault_x(rupIterNum2), Trup_Num(rupIterNum2), 'smoothingspline', 'SmoothingParam', smoothparam2);
-
-% dT_dx1 = differentiate(fitobj1, fault_x(rupIterNum1));
-% dT_dx2 = differentiate(fitobj2, fault_x(rupIterNum2));
-
-% Trup_num_approx = [feval(fitobj1, fault_x(rupIterNum1)); feval(fitobj2, fault_x(rupIterNum2))];
-% Vr_Num = [1 ./ dT_dx1; 1 ./ dT_dx2];
-
-
-% approximation by quadrature
-% vr_num = a3 x^2 + a2 x + a1
-% Ndim = 4;
-% Kernel = zeros(length(rupIterNum), Ndim);
-% Kernel_div = zeros(length(rupIterNum), Ndim);
-% for i = 1:length(rupIterNum)
-%     idx = rupIterNum(i);
-%     for j = 1:Ndim
-%         Kernel(i, j) = fault_x(idx)^(j-1);
-%         Kernel_div(i, j) = (j-1) * fault_x(idx)^(j-2);
-%     end
-% end
-% a = lsqr(Kernel, Trup_Num(rupIterNum));
-
-% Trup_num_approx = Kernel * a;
-% Vr_Num = 1 ./ (Kernel_div * a);
-
-% Vr_Num = NaN * ones(length(rupIterNum), 1);
-% for ir = 1:length(rupIterNum)
-%     i = rupIterNum(ir);
-%     Vr_Num(ir) = (fault_x(i+4) - fault_x(i-4)) / (Trup_Num(i+4) - Trup_Num(i-4));
-% end
-% Vr_num = min(Vr_Num, cs);
 

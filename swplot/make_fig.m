@@ -1,4 +1,4 @@
-function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
+function make_fig(paths, adjcmax, Nres, fontsize, sim_types, plotFlag, contFlag, fault_xlims)
     default_arg('Nres', 69); % number of results to plot
     default_arg('sim_types', {'true', 'fwd', 'adj'});
     default_arg('plotFlag', struct());
@@ -10,6 +10,8 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
     default_field(contFlag, 'Trups', true);
     default_field(contFlag, 'Tdc', true);
     default_field(contFlag, 'Dc', 0.2);
+    default_arg('fontsize', 20);
+    default_arg('fault_xlims', [-10, 10]);
 
     % sim_types = {'true','fwd', 'adj'};
     s_true = [];
@@ -87,10 +89,11 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
             contour(X, T, s_fwd > contFlag.Dc, 'k', 'linewidth', 1.5);
         end
 
-        xlabel('x along fault');
-        ylabel('t');
+        xlabel('x along fault (km)');
+        ylabel('t (s)');
         title('Slip: forward simulation');
         colorbar;
+        set(gca, 'fontsize', fontsize);
         % pdf_output(f1, sprintf('%s%s/fwd_s', outpath, name));
         pdf_output(f1, sprintf('%s/../fwd_s', paths.fwd));
 
@@ -100,15 +103,16 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         hold on;
         s2 = pcolor(X, T, V_fwd);
         s2.EdgeColor = 'none';
-        axis([-10, 10, 0, Tend]);
+        axis([fault_xlims(1), fault_xlims(2), 0, Tend]);
         % contour(X, T, V_fwd, [1e-5, 1], 'k', 'linewidth', 1.5);
-        xlabel('x along fault');
-        ylabel('t');
+        xlabel('x along fault (km)');
+        ylabel('t (s)');
         title("V: forward");
         % cmax = max(abs(V_fwd(:))) + 1e-10;
         caxis([-2, 2]);
         elastic.cmap;
         colorbar;
+        set(gca, 'fontsize', fontsize);
         % pdf_output(f2, sprintf('%s%s/fwd_V', outpath, name));
         pdf_output(f2, sprintf('%s/../fwd_V', paths.fwd));
     end
@@ -121,13 +125,14 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         s4 = pcolor(X, T, V_true);
         s4.EdgeColor = 'none';
         % contour(X, T, V_true, [1e-5, 1], 'k', 'linewidth', 1.5);
-        axis([-10, 10, 0, Tend]);
-        xlabel('x along fault');
-        ylabel('t');
+        axis([fault_xlims(1), fault_xlims(2), 0, Tend]);
+        xlabel('x along fault (km)');
+        ylabel('t (s)');
         title("V: true");
         caxis([-2, 2]);
         elastic.cmap;
         colorbar;
+        set(gca, 'fontsize', fontsize);
         % pdf_output(f4, sprintf('%s%s/true_V', outpath, name));
         pdf_output(f4, sprintf('%s/../true_V', paths.true));
 
@@ -146,14 +151,15 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         if contFlag.Tdc == true
             contour(X, T, s_fwd > contFlag.Dc, 'k', 'linewidth', 1.5);
         end
-        axis([-10, 10, 0, Tend]);
-        xlabel('x along fault');
-        ylabel('t');
+        axis([fault_xlims(1), fault_xlims(2), 0, Tend]);
+        xlabel('x along fault (km)');
+        ylabel('t (s)');
         title("residual: V_{fwd} - V_{true}");
         cmax = max(abs(V_fwd(:) - V_true(:))) + 1e-10;
         caxis([-cmax, cmax]);
         elastic.cmap;
         colorbar;
+        set(gca, 'fontsize', fontsize);
         % pdf_output(f5, sprintf('%s%s/res_V', outpath, name));
         pdf_output(f5, sprintf('%s/../res_V', paths.fwd));
     end
@@ -175,14 +181,15 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         if contFlag.Tdc == true
             contour(X, T, s_fwd > contFlag.Dc, 'k', 'linewidth', 1.5);
         end
-        xlabel('x along fault');
-        ylabel('t');
+        xlabel('x along fault (km)');
+        ylabel('t (s)');
         title('Adjoint strength');
         cmax = max(abs(taustr_adj(:)));
         caxis([-cmax, cmax]);
         elastic.cmap;
         colorbar;
         % pdf_output(f6, sprintf('%s%s/adj_str', outpath, name));
+        set(gca, 'fontsize', fontsize);
         pdf_output(f6, sprintf('%s/../adj_str', paths.adj));
 
         % adjoint slip velocity
@@ -201,8 +208,8 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         if contFlag.Tdc == true
             contour(X, T, s_fwd > contFlag.Dc, 'k', 'linewidth', 1.5);
         end
-        xlabel('x along fault');
-        ylabel('t');
+        xlabel('x along fault (km)');
+        ylabel('t (s)');
         title('Adjoint slip velocity');
         if isempty(adjcmax)
             cmax = max(abs(V_adj(:))) * adjcmax + 1e-10;
@@ -212,6 +219,7 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         caxis([-cmax, cmax]);
         elastic.cmap;
         colorbar;
+        set(gca, 'fontsize', fontsize);
         % pdf_output(f7, sprintf('%s%s/adj_V', outpath, name));
         pdf_output(f7, sprintf('%s/../adj_V', paths.adj));
 
@@ -234,7 +242,7 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         % legend('show', 'interpreter', 'latex', 'Location', 'best');
         legend('show', 'Location', 'best');
         grid on;
-        set(gca,'fontsize',16);
+        set(gca,'fontsize',fontsize);
         title('Gradient');
         % pdf_output(f8, sprintf('%s%s/grad', outpath, name));
         pdf_output(f8, sprintf('%s/../grad', paths.adj));
@@ -256,7 +264,7 @@ function make_fig(paths, adjcmax, Nres, sim_types, plotFlag, contFlag)
         ylabel('$V^{\dagger}$ (m/s)', 'interpreter', 'latex');
         legend('show', 'interpreter', 'latex', 'Location', 'best');
         grid on;
-        set(gca,'fontsize',16);
+        set(gca,'fontsize',fontsize);
         xlim([0, Tend]);
         % pdf_output(f9, sprintf('%s%s/t_V', outpath, name));
         pdf_output(f9, sprintf('%s/../adj_t_V', paths.adj));

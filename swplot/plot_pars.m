@@ -1,8 +1,10 @@
-function plot_pars(pars, parlabels, parstyles, yaxname, m_p, savepath, figsize)
+function plot_pars(pars, parlabels, parstyles, yaxname, m_p, savepath, fault_xlims, figsize)
     default_arg('yaxname', '$Stress$ (MPa)')
     default_arg('savepath', '');
     default_arg('figsize', [])
-    x = linspace(-10, 10, m_p); % Parameter grid
+    default_arg('fault_xlims', [-10, 10]);
+    % x = linspace(-10, 10, m_p); % Parameter grid
+    x = linspace(fault_xlims(1), fault_xlims(2), m_p); % Parameter grid
     % pars = {@tau0, @taur, @taup};
 
     if isempty(figsize)
@@ -32,6 +34,7 @@ function plot_pars(pars, parlabels, parstyles, yaxname, m_p, savepath, figsize)
     legend(legend_labels, 'interpreter', 'latex', 'Location', 'southwest');
     xlabel('$x$ (km)', 'interpreter', 'latex');
     ylabel(yaxname, 'interpreter', 'latex');
+    xlim(fault_xlims)
     set(gca, 'fontsize', 16);
     grid on;
     if ~isempty(savepath)
