@@ -1,4 +1,4 @@
-# Rupture Sensitivity to Dynamic Source Parameters Revealed by Variational Fracture Mechanics and Adjoint Rupture Dynamics
+# Testing and verification of numerical methods in Rupture sensitivity to dynamic source parameters revealed by variational fracture mechanics and adjoint rupture dynamics
 This repository contains the adjoint-based code for earthquake rupture with slip-weakening friction. The content is presented in the paper
 'Rupture sensitivity to dynamic source parameters revealed by variational fracture mechanics and adjoint rupture dynamics' by Fukushima and Dunham.
 
