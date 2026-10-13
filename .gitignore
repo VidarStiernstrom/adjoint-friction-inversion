@@ -1,7 +1,8 @@
 # macOS
 .DS_Store
 **/.DS_Store
-.sh
+*.sh
+*.out
 
 # output file
 swout/
