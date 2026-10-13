@@ -1,13 +1,12 @@
 clearvars;
 close all;
 addSubpaths;
-% addpath('./swplot');
-addpath('./swadjoint_paper/swplot');
+addpath('./swplot');
 
-% name = 'var0'; 
-outpath = './swadjoint_paper/swout/';
+outpath = './swout/';
 
-for Dc = [0.16, 0.2, 0.25]
+% for Dc = [0.16, 0.2, 0.25]
+for Dc = [0.2]
     name = sprintf('var_Dc%.2f', Dc);
 
     savedir = sprintf('%s%s', outpath, name);

@@ -31,8 +31,13 @@ function make_movie(paths, plot_variables, uvmaxs, Nres, sim_types, axlims, faul
         obj = PlotSW(ini_path, type);
 
         % vname = sprintf('%s%s/%s.mp4', outpath, name, sim_type);
-        vname = sprintf('%s/../%s.mp4', savedir, sim_type);
-        mov = VideoWriter(vname, 'MPEG-4');
+        if ispc || ismac
+            vname = sprintf('%s/../%s.mp4', savedir, sim_type);
+            mov = VideoWriter(vname, 'MPEG-4');
+        else % MPEG-4 is not supported by VideoWriter on Linux
+            vname = sprintf('%s/../%s.avi', savedir, sim_type);
+            mov = VideoWriter(vname, 'Motion JPEG AVI');
+        end
         mov.FrameRate = 5;
         open(mov);
         for it = 1:Nres

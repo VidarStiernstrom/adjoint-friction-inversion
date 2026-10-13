@@ -12,8 +12,8 @@ addSubpaths;
 addpath('./swplot');
 
 % D_c0 = 0.16;
-% D_c0 = 0.2;
-D_c0 = 0.25;
+D_c0 = 0.2;
+% D_c0 = 0.25;
 name = sprintf('var_Dc%.2f', D_c0);
 
 outpath = './swout/';
@@ -43,7 +43,7 @@ axlims = [fault_xlims(1), fault_xlims(2), -10, 10];
 
 order = 8; % error occurs if order = 4
 
-maxIter = 3;
+maxIter = 1;
 loadDataPath = '';
 loadOptPath = '';
 lbfgs = true;

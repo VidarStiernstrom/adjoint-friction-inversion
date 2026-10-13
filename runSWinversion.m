@@ -26,6 +26,7 @@ if ~exist(saveOpts.savepath, 'dir')
 end
 
 x = linspace(-10,10,m_p); % Parameter grid
+faultx_lim = [-10, 10];
 
 %%% define swParams for true model
 x0 = 0;
@@ -35,7 +36,8 @@ taup = @(x,y) taur(x,y) + 6;
 D_c = @(x,y) (0.2 + 0.2 * (abs(x) >= 1.2).*(abs(x) - 1.2));
 sigma0 = 120;
 
-plot_pars({D_c}, {'$D_c$'}, {'--x'}, '$D_c$ (m)', m_p, sprintf('%sDc', saveOpts.savepath), [50, 50, 400, 200]);
+plot_pars({D_c}, {'$D_c$'}, {'--x'}, '$D_c$ (m)', m_p, sprintf('%sDc', saveOpts.savepath), faultx_lim, [50, 50, 400, 300]);
+plot_pars({taur, tau0}, {'$\tau_r$', '$\tau_0$'}, {'--x', '--x'}, '$\tau$ (MPa)', m_p, sprintf('%stau', saveOpts.savepath), faultx_lim, [50, 50, 400, 300]);
 
 % nucleation by external stress loading
 A = 2.1;
